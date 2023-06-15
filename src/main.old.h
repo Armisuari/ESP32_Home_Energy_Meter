@@ -4,11 +4,8 @@
 #include <EEPROM.h>
 
 // Replace with your network credentials
-const char *ssid = "Tangga 1";
-const char *password = "bandungsatu";
-
-unsigned long prevMillis = 0;
-unsigned long interval = 1000;
+const char* ssid = "Tangga 1";
+const char* password = "bandungsatu";
 
 WebServer server(80);
 
@@ -32,9 +29,45 @@ void readPriceFromEEPROM() {
 void handleRoot() {
   readPriceFromEEPROM();
 
-  String html = "<html><body>";
-  html += "<h1>Pilih Nominal Token:</h1>";
-  html += "<p>Jumlah Token Sekarang: " + String(selectedPrice) + "</p>";
+  String html = "<html><head>";
+  html += "<style>";
+  html += "body {";
+  html += "  font-family: Arial, sans-serif;";
+  html += "  background-color: #F1F1F1;";
+  html += "}";
+  html += "h1 {";
+  html += "  color: #333333;";
+  html += "}";
+  html += "form {";
+  html += "  margin-top: 20px;";
+  html += "}";
+  html += "select {";
+  html += "  padding: 5px;";
+  html += "  font-size: 16px;";
+  html += "  border-radius: 5px;";
+  html += "  border: 1px solid #CCCCCC;";
+  html += "}";
+  html += "input[type='submit'] {";
+  html += "  padding: 8px 12px;";
+  html += "  font-size: 16px;";
+  html += "  background-color: #4CAF50;";
+  html += "  border: none;";
+  html += "  color: white;";
+  html += "  border-radius: 5px;";
+  html += "  cursor: pointer;";
+  html += "}";
+  html += "a.button {";
+  html += "  display: inline-block;";
+  html += "  background-color: #4CAF50;";
+  html += "  color: white;";
+  html += "  padding: 8px 12px;";
+  html += "  text-decoration: none;";
+  html += "  border-radius: 5px;";
+  html += "}";
+  html += "</style>";
+  html += "</head><body>";
+  html += "<h1>Pilih Nominal Pulsa Token:</h1>";
+  html += "<p>Total Token Sekarang: " + String(selectedPrice) + "</p>";
   html += "<form method='get' action='/setprice'>";
   html += "<select name='price'>";
 
@@ -43,7 +76,8 @@ void handleRoot() {
   }
 
   html += "</select>";
-  html += "<input type='submit' value='Submit'>";
+  html += "<br><br>";
+  html += "<input type='submit' value='Pilih'>";
   html += "</form>";
   html += "<br>";
   html += "<form method='get' action='/reset'>";
@@ -60,11 +94,32 @@ void handleSetPrice() {
   selectedPrice += increment;
   writePriceToEEPROM();
 
-  String html = "<html><body>";
+  String html = "<html><head>";
+  html += "<style>";
+  html += "body {";
+  html += "  font-family: Arial, sans-serif;";
+  html += "  background-color: #F1F1F1;";
+  html += "}";
+  html += "h1 {";
+  html += "  color: #333333;";
+  html += "}";
+  html += "p {";
+  html += "  margin-bottom: 20px;";
+  html += "}";
+  html += "a.button {";
+  html += "  display: inline-block;";
+  html += "  background-color: #4CAF50;";
+  html += "  color: white;";
+  html += "  padding: 8px 12px;";
+  html += "  text-decoration: none;";
+  html += "  border-radius: 5px;";
+  html += "}";
+  html += "</style>";
+  html += "</head><body>";
   html += "<h1>Berhasil Membeli Token:</h1>";
-  html += "<p>Token yang ditambahakan: " + String(increment) + "</p>";
-  html += "<p>Total Token Sekarang: " + String(selectedPrice) + "</p>";
-  html += "<a href='/'>Kembali ke Beranda</a>";
+  html += "<p>Token Dibeli: " + String(increment) + "</p>";
+  html += "<p>Total Token: " + String(selectedPrice) + "</p>";
+  html += "<a href='/'>Kembali</a>";
   html += "</body></html>";
 
   server.send(200, "text/html", html);
@@ -74,10 +129,31 @@ void handleReset() {
   selectedPrice = 0;
   writePriceToEEPROM();
 
-  String html = "<html><body>";
-  html += "<h1>Token Reset:</h1>";
-  html += "<p>Token direset ke 0</p>";
-  html += "<a href='/'>Kembali ke Beranda</a>";
+  String html = "<html><head>";
+  html += "<style>";
+  html += "body {";
+  html += "  font-family: Arial, sans-serif;";
+  html += "  background-color: #F1F1F1;";
+  html += "}";
+  html += "h1 {";
+  html += "  color: #333333;";
+  html += "}";
+  html += "p {";
+  html += "  margin-bottom: 20px;";
+  html += "}";
+  html += "a.button {";
+  html += "  display: inline-block;";
+  html += "  background-color: #4CAF50;";
+  html += "  color: white;";
+  html += "  padding: 8px 12px;";
+  html += "  text-decoration: none;";
+  html += "  border-radius: 5px;";
+  html += "}";
+  html += "</style>";
+  html += "</head><body>";
+  html += "<h1>Token Direset:</h1>";
+  html += "<p>Token Direset to 0</p>";
+  html += "<a href='/'>Kembali</a>";
   html += "</body></html>";
 
   server.send(200, "text/html", html);
@@ -86,10 +162,31 @@ void handleReset() {
 void handleGetPrice() {
   readPriceFromEEPROM();
 
-  String html = "<html><body>";
-  html += "<h1>Jumlah Token Sekarang:</h1>";
-  html += "<p>Token: " + String(selectedPrice) + "</p>";
-  html += "<a href='/'>Kembali ke Beranda</a>";
+  String html = "<html><head>";
+  html += "<style>";
+  html += "body {";
+  html += "  font-family: Arial, sans-serif;";
+  html += "  background-color: #F1F1F1;";
+  html += "}";
+  html += "h1 {";
+  html += "  color: #333333;";
+  html += "}";
+  html += "p {";
+  html += "  margin-bottom: 20px;";
+  html += "}";
+  html += "a.button {";
+  html += "  display: inline-block;";
+  html += "  background-color: #4CAF50;";
+  html += "  color: white;";
+  html += "  padding: 8px 12px;";
+  html += "  text-decoration: none;";
+  html += "  border-radius: 5px;";
+  html += "}";
+  html += "</style>";
+  html += "</head><body>";
+  html += "<h1>Current Price:</h1>";
+  html += "<p>Price: " + String(selectedPrice) + "</p>";
+  html += "<a href='/'>Kembali</a>";
   html += "</body></html>";
 
   server.send(200, "text/html", html);
@@ -116,13 +213,6 @@ void setup() {
   Serial.println("HTTP server started");
 }
 
-void loop()
-{
+void loop() {
   server.handleClient();
-
-  if (millis() - prevMillis >= interval)
-  {
-    prevMillis = millis();
-    Serial.printf("Jumlah Token: %d\n", selectedPrice);
-  }
 }
