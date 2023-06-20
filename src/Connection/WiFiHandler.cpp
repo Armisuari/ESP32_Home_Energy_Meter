@@ -15,12 +15,12 @@ void WiFiHandler::setup(const char *ssid_, const char *password_)
     while (WiFi.status() != WL_CONNECTED)
     {
         delay(1000);
-        ESP_LOGD(CONFIG_WIFI_HANDLER_LOG_TAG, "Connecting to WiFi...");
+        ESP_LOGD(WIFIHANDLERTAG, "Connecting to WiFi...");
         // Serial.println("Connecting to WiFi...");
     }
 
-    ESP_LOGD(CONFIG_WIFI_HANDLER_LOG_TAG, "Connected to WiFi");
-    // ESP_LOGD(CONFIG_WIFI_HANDLER_LOG_TAG, "IP address: " + WiFi.localIP().toString());
+    ESP_LOGD(WIFIHANDLERTAG, "Connected to WiFi");
+    // ESP_LOGD(WIFIHANDLERTAG, "IP address: " + WiFi.localIP().toString());
     Serial.println("[WIFIHANDLER] IP address: " + WiFi.localIP().toString());
 
     // create task for this handler
@@ -43,7 +43,7 @@ void WiFiHandler::_taskFunc()
     while (1)
     {
         if (WiFi.status() != WL_CONNECTED)
-            Serial.println("Connecting to WiFi...");
+            ESP_LOGD(WIFIHANDLERTAG,"Reconnecting to WiFi...");
     }
     vTaskDelete(NULL);
 }

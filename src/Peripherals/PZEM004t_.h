@@ -20,12 +20,16 @@ class PZEM004t_
 {
 private:
     /* data */
+    TaskHandle_t _taskHandle;
+
     PZEM004Tv30 pzems[CONFIG_PZEM004T_NUM];
+
+    static void _staticTaskFunc(void *pvParam);
+    void _taskFunc();
 
 public:
     PZEM004t_(/* args */);
     ~PZEM004t_();
 
     bool begin();
-    void read(PZEMData_t pzem_);
 };
