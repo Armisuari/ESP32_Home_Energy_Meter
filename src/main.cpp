@@ -77,8 +77,8 @@ void calcBalance()
     {
         PREVIOUS_MILLIS_HOURLY = millis();
 
-        data.balance1 -= cost.energy[CONFIG_KOST_PERTAMA];
-        data.balance2 -= cost.energy[CONFIG_KOST_KEDUA];
+        data.balance1 -= (cost.energy[CONFIG_KOST_PERTAMA] * 1000);
+        data.balance2 -= (cost.energy[CONFIG_KOST_KEDUA] * 1000);
 
         saveValue("/SALDO_KAMAR_1", data.balance1);
         saveValue("/SALDO_KAMAR_2", data.balance2);
